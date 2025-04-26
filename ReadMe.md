@@ -35,5 +35,4 @@ Tap the glowing creatures that pop out of portals to earn as many points as poss
 - **HTML5**
 - **CSS3** (Neon-themed custom styling)
 - **JavaScript (Vanilla)**
-
----
+  
