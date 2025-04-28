@@ -54,13 +54,6 @@ Tap the glowing creatures that emerge from neon portals to earn points within a 
 ### Browser Compatibility
 Tested and working on recent versions of Chrome, Firefox, Safari, and Edge.
 
-## 🎨 Credits
-
-- All game design & code: [Your Name]
-- Sound effects: [Source]
-- Background music: [Artist/Source]
-
----
 
 ## 🔧 Development
 
