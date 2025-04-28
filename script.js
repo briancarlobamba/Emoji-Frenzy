@@ -45,7 +45,7 @@ let slowMotionTimeout = null;
 let activeCreatures = 0;
 let soundsMuted = localStorage.getItem('soundsMuted') === 'true';
 
-const creatureSet = ['👾', '👽', '🤖', '💀', '🛸', '🔮'];
+const creatureSet = ['👾', '👽', '🤖', '🎯', '🛸', '🔮'];
 const bonusCreature = '⚡';
 const bombCreature = '💣';
 const specialCreature = '🌟'; 
