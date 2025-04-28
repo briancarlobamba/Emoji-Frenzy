@@ -2,7 +2,6 @@
 
 Welcome to **Emoji Frenzy**, a vibrant neon-lit, arcade-style browser game where you tap your way to glory! Built with vanilla JavaScript, HTML5, and CSS3, this game features a retro-futuristic aesthetic with classic whack-a-mole gameplay, enhanced with modern UI flair and exciting mechanics.
 
-![Emoji Frenzy Banner](https://placeholder-image.com/emoji-frenzy-banner.png)
 
 ## 🎮 Gameplay
 
