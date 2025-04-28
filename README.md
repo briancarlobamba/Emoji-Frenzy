@@ -14,10 +14,12 @@ Tap the glowing creatures that emerge from neon portals to earn points within a 
 - **Bonus Creatures (⚡)**: +5 points each
 - **Special Rare Creatures (🌟)**: +10 points + 3 seconds bonus time
 - **Bomb Creatures (💣)**: -3 points and resets combo
-- **Combo System**: 
+- **Combo System**:
+  
   - Build consecutive hits without missing
   - Every 5 hits: Activates slow-motion mode
   - Higher combos increase score multipliers:
+    
     - 5+ hits: 2x multiplier
     - 10+ hits: 3x multiplier
     - 15+ hits: 4x multiplier
@@ -53,14 +55,6 @@ Tap the glowing creatures that emerge from neon portals to earn points within a 
 
 ### Browser Compatibility
 Tested and working on recent versions of Chrome, Firefox, Safari, and Edge.
-
-## 🚀 Future Enhancements
-
-- Additional creature types with unique effects
-- Power-ups that appear during gameplay
-- Online high score leaderboard
-- Multiple game modes (survival, timed challenges)
-- Theme selector with different visual styles
 
 ## 🎨 Credits
 
