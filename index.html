@@ -5,31 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>⚡ Emoji Frenzy</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="arena">
     <h1>⚡ Emoji Frenzy </h1>
+    
+    <button id="mute-button" class="sound-toggle" title="Mute Sounds">🔊</button>
 
-    <div class="instructions" style="text-align: center; color: var(--text-light); margin-top: 15px; font-size: 0.95rem; max-width: 500px;">
+    <div class="instructions">
       <p><strong>How to Play:</strong></p>
-      <ul style="list-style: none; padding-left: 0;">
-        <li>👾 Tap the glowing creatures to earn points</li>
-        <li>⚡ Bonus creatures give extra points</li>
-        <li>💣 Avoid bombs or you'll lose points!</li>
-        <li>💥 Build combos to activate slow-motion mode</li>
-        <li>🎯 Choose a difficulty, press <strong>Start</strong>, and go!</li>
+      <ul>
+        <li>👾 Tap creatures: +1pt</li>
+        <li>⚡ Bonus: +5pts</li>
+        <li>🌟 Special: +10pts & bonus time</li>
+        <li>💣 Bombs: -3pts</li>
+        <li>💥 Combos activate slow-motion!</li>
       </ul>
     </div>
 
-<div class="status-bar">
-  <div class="timer">🕒 <span id="time">30</span>s</div>
-  <div class="score">✨ Score: <span id="score">0</span></div>
-  <div class="combo">🔥 Combo: <span id="combo-count">0</span></div>
-  <div class="high-score">🏆 High: <span id="high-score">0</span></div>
-</div>
+    <div class="status-bar">
+      <div class="timer">🕒 <span id="time">30</span>s</div>
+      <div class="score">✨ <span id="score">0</span></div>
+      <div class="combo">🔥 <span id="combo-count">0</span></div>
+      <div class="multiplier">✖️ <span id="multiplier">1x</span></div>
+    </div>
     
-
+    <div class="high-score-display">🏆 High Score: <span id="high-score">0</span></div>
+    
     <div class="streak-bar" id="streak-bar"></div>
     <div class="progress-container">
       <div class="progress-bar" id="progress"></div>
@@ -45,10 +49,10 @@
     </div>
 
     <div class="controls">
-      <button id="start-button">Start</button>
+      <button id="start-button">Start Game</button>
       <button id="pause-button">Pause</button>
       <button id="resume-button">Resume</button>
-      <button id="stop-button">Stop</button>
+      <button id="stop-button">Stop Game</button>
     </div>
 
     <div class="difficulty">
@@ -61,18 +65,21 @@
   <div class="game-over">
     <div class="modal">
       <h2>Game Over!</h2>
-      <p>Final Score: <span id="final-score"></span></p>
+      <p>Final Score:</p>
+      <span id="final-score">0</span>
       <p id="high-score-message"></p>
-      <button id="play-again">Main Menu</button>
+      <button id="play-again">Play Again</button>
     </div>
   </div>
 
-  <audio id="hit-sound" src="sounds/hit.wav"></audio>
-  <audio id="gameover-sound" src="sounds/gameover.wav"></audio>
-  <audio id="combo-sound" src="sounds/combo.wav"></audio>
-  <audio id="countdown-sound" src="sounds/ticking.wav"></audio>
-  <audio id="special-sound" src="sounds/explosion.wav"></audio>
-  <audio id="bg-music" src="sounds/synthwave.mp3" loop autoplay></audio>
+  <!-- Sound Effects -->
+  <audio id="hit-sound" src="sounds/hit.wav" preload="auto"></audio>
+  <audio id="gameover-sound" src="sounds/gameover.wav" preload="auto"></audio>
+  <audio id="combo-sound" src="sounds/combo.wav" preload="auto"></audio>
+  <audio id="countdown-sound" src="sounds/ticking.wav" preload="auto"></audio>
+  <audio id="special-sound" src="sounds/explosion.wav" preload="auto"></audio>
+  <audio id="bomb-sound" src="sounds/bomb.wav" preload="auto"></audio>
+  <audio id="bg-music" src="sounds/synthwave.mp3" loop></audio>
 
   <script src="script.js"></script>
 </body>
