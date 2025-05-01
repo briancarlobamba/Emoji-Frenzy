@@ -11,6 +11,7 @@ const streakBar = document.getElementById('streak-bar');
 const difficultyContainer = document.querySelector('.difficulty');
 const comboCountDisplay = document.getElementById('combo-count');
 const multiplierDisplay = document.getElementById('multiplier');
+const arena = document.querySelector('.arena');
 
 const startBtn = document.getElementById('start-button');
 const pauseBtn = document.getElementById('pause-button');
@@ -44,6 +45,7 @@ let slowMotionActive = false;
 let slowMotionTimeout = null;
 let activeCreatures = 0;
 let soundsMuted = localStorage.getItem('soundsMuted') === 'true';
+let arenaHeight = null;
 
 const creatureSet = ['👾', '👽', '🤖', '🎯', '🛸', '🔮'];
 const bonusCreature = '⚡';
@@ -51,27 +53,60 @@ const bombCreature = '💣';
 const specialCreature = '🌟'; 
 
 function init() {
-  highScoreDisplay.textContent = highScore;
-  setDifficulty(document.querySelector('.diff-btn.active'));
-  updateUIState('preStart');
-  updateSoundButtonState();
-  
-  creatures.forEach(c => {
-      c.style.top = '100%'; 
-  });
-  
-  [hitSound, gameoverSound, comboSound, countdownSound, specialSound, bombSound].forEach(sound => {
-      if (sound) {
-          sound.load();
-          sound.volume = 0.3;
-      }
-  });
-  
-  if (bgMusic) {
-      bgMusic.load();
-      bgMusic.volume = 0.2;
-      bgMusic.muted = soundsMuted;
-  }
+    highScoreDisplay.textContent = highScore;
+    setDifficulty(document.querySelector('.diff-btn.active'));
+    updateUIState('preStart');
+    updateSoundButtonState();
+    
+    creatures.forEach(c => {
+        c.style.top = '100%'; 
+    });
+    
+    [hitSound, gameoverSound, comboSound, countdownSound, specialSound, bombSound].forEach(sound => {
+        if (sound) {
+            sound.load();
+            sound.volume = 0.3;
+        }
+    });
+    
+    if (bgMusic) {
+        bgMusic.load();
+        bgMusic.volume = 0.2;
+        bgMusic.muted = soundsMuted;
+    }
+    
+    // Force dark background for all devices, especially iPhone
+    document.documentElement.style.backgroundColor = 'var(--bg-dark)';
+    document.body.style.backgroundColor = 'var(--bg-dark)';
+    
+    // Store the initial arena height
+    if (arena) {
+        arenaHeight = arena.offsetHeight;
+        arena.style.minHeight = `${arenaHeight}px`;
+    }
+    
+    // Adjust body height for iPhone
+    adjustBodyHeight();
+    
+    // Listen for orientation changes and resize events
+    window.addEventListener('resize', adjustBodyHeight);
+    window.addEventListener('orientationchange', adjustBodyHeight);
+}
+
+function adjustBodyHeight() {
+    // Force minimum viewport height for better mobile experience
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    
+    // Additional height adjustment for iPhone
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+        document.body.style.minHeight = `${window.innerHeight}px`;
+        document.body.style.height = `${window.innerHeight}px`;
+        
+        // Extra padding at the bottom for iPhones to prevent cut-off
+        document.body.style.paddingBottom = '50px';
+    }
 }
 
 function flashScreen(color = 'red', duration = 150, opacity = 0.3) {
@@ -279,7 +314,11 @@ function startGame() {
     
     updateUIState('running');
     updateProgressBar();
-    difficultyContainer.style.display = 'none';
+    
+    // Instead of hiding, make invisible but keep space
+    difficultyContainer.style.visibility = 'hidden';
+    difficultyContainer.style.opacity = '0';
+    difficultyContainer.style.height = `${difficultyContainer.offsetHeight}px`;
     
     if (bgMusic && !soundsMuted) {
         bgMusic.currentTime = 0;
@@ -356,7 +395,10 @@ function stopGame(end = false) {
         bgMusic.currentTime = 0;
     }
     
-    difficultyContainer.style.display = 'flex';
+    // Restore difficulty container
+    difficultyContainer.style.visibility = 'visible';
+    difficultyContainer.style.opacity = '1';
+    difficultyContainer.style.height = '';
     
     if (end) {
         if (gameoverSound && !soundsMuted) gameoverSound.play();
@@ -497,4 +539,22 @@ if (muteBtn) {
     muteBtn.addEventListener('click', toggleMute);
 }
 
-window.addEventListener('DOMContentLoaded', init);
+// After page load, force dark background and check if additional iPhone fixes are needed
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    
+    // Fix for iPhone background color
+    setTimeout(() => {
+        document.documentElement.style.backgroundColor = 'var(--bg-dark)';
+        document.body.style.backgroundColor = 'var(--bg-dark)';
+        adjustBodyHeight();
+    }, 100);
+});
+
+// Handle page visibility changes to maintain dark background
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        document.documentElement.style.backgroundColor = 'var(--bg-dark)';
+        document.body.style.backgroundColor = 'var(--bg-dark)';
+    }
+});
