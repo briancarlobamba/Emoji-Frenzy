@@ -141,6 +141,7 @@ function randomCreature() {
     
     return creatureSet[Math.floor(Math.random() * creatureSet.length)];
 }
+
 function showCreature() {
     if (timeUp || gamePaused) return;
     
@@ -163,16 +164,14 @@ function showCreature() {
     const showTime = Math.max(400, 1000 / difficultyFactor);
     
     creature.textContent = randomCreature();
-creature.classList.remove('hit');
-creature.style.top = '10%';
-activeCreatures++;
+    creature.classList.remove('hit');
+    creature.style.top = '10%';
+    activeCreatures++;
 
-creature.style.animation = 'bounceIn 0.6s ease';
-setTimeout(() => {
-    creature.style.animation = 'none';
-}, 600);
-
-    
+    creature.style.animation = 'bounceIn 0.6s ease';
+    setTimeout(() => {
+        creature.style.animation = 'none';
+    }, 600);
     
     setTimeout(() => {
         if (!creature.classList.contains('hit') && creature.style.top === '10%') {
@@ -231,8 +230,10 @@ function incrementCombo() {
     comboCountDisplay.classList.add('combo-pulse');
     setTimeout(() => comboCountDisplay.classList.remove('combo-pulse'), 300);
     
-    streakBar.style.width = `${Math.min(comboCount * 10, 100)}%`;
+    const streakPercentage = Math.min(comboCount * 10, 100);
+    streakBar.style.width = `${streakPercentage}%`;
     
+    // Update the multiplier based on combo count
     if (comboCount >= 15) {
         scoreMultiplier = 4;
     } else if (comboCount >= 10) {
@@ -244,6 +245,7 @@ function incrementCombo() {
     }
     multiplierDisplay.textContent = `${scoreMultiplier}x`;
     
+    // Trigger special effects on milestone combos
     if (comboCount % 5 === 0) {
         if (comboSound && !soundsMuted) comboSound.play();
         flashScreen('cyan', 200, 0.2);
@@ -343,6 +345,12 @@ function stopGame(end = false) {
     creatures.forEach(c => c.style.top = '100%');
     document.body.classList.remove('slow-motion');
     
+    timeLeft = 30;
+    timeDisplay.textContent = timeLeft;
+    updateProgressBar();
+    
+    resetCombo();
+    
     if (bgMusic) {
         bgMusic.pause();
         bgMusic.currentTime = 0;
@@ -359,7 +367,7 @@ function stopGame(end = false) {
             localStorage.setItem('highScore', highScore);
             highScoreDisplay.textContent = highScore;
             highScoreMessage.textContent = '🚀 New High Score!';
-            flashScreen('#39ff14', 300, 0.2);
+            flashScreen('var(--accent)', 300, 0.2);
         } else {
             highScoreMessage.textContent = '';
         }
@@ -408,50 +416,49 @@ portals.forEach(portal => {
         
         const creature = portal.querySelector('.creature');
         if (!creature.classList.contains('hit') && creature.textContent !== '') {
-
             creature.classList.add('hit');
             let points = 0;
             
             switch (creature.textContent) {
-              case specialCreature:
-                points = 10;
-                if (getCurrentDifficulty() === 'hard') {
-                    points *= 2;
-                }
-                if (specialSound && !soundsMuted) specialSound.play();
-                flashScreen('#ffff00', 300, 0.2);
-                
-                timeLeft = Math.min(30, timeLeft + (getCurrentDifficulty() === 'hard' ? 5 : 3)); 
-                timeDisplay.textContent = timeLeft;
-                updateProgressBar();
-                incrementCombo();
-                if (getCurrentDifficulty() === 'hard') {
-                  flashScreen('blue', 200, 0.2); 
-                }
-                break;
-            
+                case specialCreature:
+                    points = 10;
+                    if (getCurrentDifficulty() === 'hard') {
+                        points *= 2;
+                    }
+                    if (specialSound && !soundsMuted) specialSound.play();
+                    flashScreen('var(--neon-pink)', 300, 0.2);
                     
-                    case bonusCreature:
-                      points = 5;
-                      if (getCurrentDifficulty() === 'hard') {
-                          points *= 2; 
-                      }
-                      if (hitSound && !soundsMuted) {
-                          hitSound.playbackRate = 1.5;
-                          hitSound.currentTime = 0;
-                          hitSound.play();
-                      }
-                      incrementCombo();
-                      if (getCurrentDifficulty() === 'hard') {
-                        flashScreen('blue', 200, 0.2); 
-                      }
-                      break;                  
+                    // Add bonus time
+                    timeLeft = Math.min(30, timeLeft + (getCurrentDifficulty() === 'hard' ? 5 : 3)); 
+                    timeDisplay.textContent = timeLeft;
+                    updateProgressBar();
+                    incrementCombo();
+                    if (getCurrentDifficulty() === 'hard') {
+                        flashScreen('var(--neon-blue)', 200, 0.2); 
+                    }
+                    break;
+                    
+                case bonusCreature:
+                    points = 5;
+                    if (getCurrentDifficulty() === 'hard') {
+                        points *= 2; 
+                    }
+                    if (hitSound && !soundsMuted) {
+                        hitSound.playbackRate = 1.5;
+                        hitSound.currentTime = 0;
+                        hitSound.play();
+                    }
+                    incrementCombo();
+                    if (getCurrentDifficulty() === 'hard') {
+                        flashScreen('var(--neon-blue)', 200, 0.2); 
+                    }
+                    break;                  
                     
                 case bombCreature:
                     points = -3;
                     if (bombSound && !soundsMuted) bombSound.play();
                     resetCombo();
-                    flashScreen('#ff0000', 200, 0.3);
+                    flashScreen('var(--danger)', 200, 0.3);
                     break;
                     
                 default:

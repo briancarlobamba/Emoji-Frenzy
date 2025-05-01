@@ -16,20 +16,21 @@
 
     <div class="instructions">
       <p><strong>How to Play:</strong></p>
-      <ul>
-        <li>👾 Tap creatures: +1pt</li>
-        <li>⚡ Bonus: +5pts</li>
-        <li>🌟 Special: +10pts & bonus time</li>
-        <li>💣 Bombs: -3pts</li>
+      <ul style="list-style-type: none;">
+        <li>👾 Tap emojis:  + 1pt</li>
+        <li>⚡ Bonus:  + 5pts</li>
+        <li>🌟 Special:  + 10pts & bonus time</li>
+        <li>💣 Bombs:  - 3pts</li>
         <li>💥 Combos activate slow-motion!</li>
       </ul>
     </div>
+    
 
     <div class="status-bar">
-      <div class="timer">🕒 <span id="time">30</span>s</div>
-      <div class="score">✨ <span id="score">0</span></div>
-      <div class="combo">🔥 <span id="combo-count">0</span></div>
-      <div class="multiplier">✖️ <span id="multiplier">1x</span></div>
+      <div class="timer">🕒<span id="time">30</span>s</div>
+      <div class="score">✨<span id="score">0</span></div>
+      <div class="combo">🔥<span id="combo-count">0</span></div>
+      <div class="multiplier">✖️<span id="multiplier">1x</span></div>
     </div>
     
     <div class="high-score-display">🏆 High Score: <span id="high-score">0</span></div>
@@ -72,13 +73,12 @@
     </div>
   </div>
 
-  <!-- Sound Effects -->
-  <audio id="hit-sound" src="sounds/hit.wav" preload="auto"></audio>
-  <audio id="gameover-sound" src="sounds/gameover.wav" preload="auto"></audio>
-  <audio id="combo-sound" src="sounds/combo.wav" preload="auto"></audio>
-  <audio id="countdown-sound" src="sounds/ticking.wav" preload="auto"></audio>
-  <audio id="special-sound" src="sounds/explosion.wav" preload="auto"></audio>
-  <audio id="bomb-sound" src="sounds/bomb.wav" preload="auto"></audio>
+  <audio id="hit-sound" src="sounds/hit.mp3" preload="auto"></audio>
+  <audio id="gameover-sound" src="sounds/gameover.mp3" preload="auto"></audio>
+  <audio id="combo-sound" src="sounds/combo.mp3" preload="auto"></audio>
+  <audio id="countdown-sound" src="sounds/ticking.mp3" preload="auto"></audio>
+  <audio id="special-sound" src="sounds/explosion.mp3" preload="auto"></audio>
+  <audio id="bomb-sound" src="sounds/bomb.mp3" preload="auto"></audio>
   <audio id="bg-music" src="sounds/synthwave.mp3" loop></audio>
 
   <script src="script.js"></script>
